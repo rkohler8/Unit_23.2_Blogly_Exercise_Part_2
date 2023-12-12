@@ -1,0 +1,47 @@
+/* a { text-decoration: none; color:blue; } */
+/* a:visited { text-decoration: none; } */
+a {
+    text-decoration: none;
+    color: blue;
+  }
+a:active {
+    color: purple;
+  }
+body {
+    background-color: rgb(172, 142, 103);
+}
+button {
+  background-color: grey;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+.delete-button {
+  background-color:red;
+}
+
+.edit-button {
+  background-color:blue;
+}
+
+.add-button {
+  background-color:green;
+}
+
+.cancel-button {
+  background-color:cyan;
+}
+
+.save-button {
+  background-color:green;
+}
+
+img{
+  max-width:250px;
+  max-height:250px;
+}

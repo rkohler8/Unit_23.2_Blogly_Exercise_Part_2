@@ -133,19 +133,18 @@ def edit_post(post_id):
 def update_post(post_id):
     """Handle the post edit form, returning the user to the /users page"""
 
-    user = User.query.get_or_404(user_id)
-    user.first_name = request.form['first_name']
-    user.last_name = request.form['last_name']
-    user.image_url = request.form['image_url']
+    post = Post.query.get_or_404(post_id)
+    post.title=request.form['title']
+    post.content=request.form['content']
 
-    db.session.add(user)
+    db.session.add(post)
     db.session.commit()
 
-    return redirect("/users")
+    return redirect(f"/users/{post.user_id}")
 
 
 
-@app.route('/users/<int:user_id>/delete', methods=["POST"])
+@app.route('/posts/<int:post_id>/delete', methods=["POST"])
 def delete_post(post_id):
     """Delete a user's post"""
     
@@ -153,4 +152,4 @@ def delete_post(post_id):
     db.session.delete(post)
     db.session.commit()
 
-    return redirect("/users")
+    return redirect(f"/users/{post.user_id}")

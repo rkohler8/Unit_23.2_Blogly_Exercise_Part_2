@@ -5,7 +5,7 @@
     <h1>{{post.title}}</h1>
 
     <p>{{post.content}}</p>
-    <p><i>By {{post.user.full_name}}</i></p>
+    <p><i>By {{post.user.full_name}} on {{post.friendly_date}}</i></p>
     <form>
         <button type="submit" class="cancel-button" formaction="/users/{{post.user.id}}" formmethod="">Cancel</button>
         <button type="submit" class="edit-button" 

@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 db = SQLAlchemy()
 
@@ -31,7 +32,7 @@ class User(db.Model):
     #                  nullable=False,
     #                  unique=True)
     
-    posts = db.relationship('Post', backref='user')
+    posts = db.relationship('Post', backref='user', cascade="all, delete-orphan")
 
     @property
     def full_name(self):
@@ -54,15 +55,19 @@ class Post(db.Model):
     content = db.Column(db.Text, 
                         nullable=False)
 
-    created_at = db.Column(db.Text, 
+    created_at = db.Column(db.DateTime, 
                            nullable=False, 
-                           default='when post was created?')
+                           default=datetime.datetime.now)
 
     user_id = db.Column(db.Integer, 
                         db.ForeignKey('users.id'), 
                         nullable=False,)
     
-    # dept = db.relationship('Department', backref='employees')
+    @property
+    def friendly_date(self):
+        """Return nicely-formatted date."""
+
+        return self.created_at.strftime("%a %b %-d  %Y, %-I:%M %p")
 
     def __repr__(self):
         return f"<Employee {self.title} {self.scontent} {self.created_at} {self.user_id} >"

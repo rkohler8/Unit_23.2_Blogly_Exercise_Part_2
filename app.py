@@ -24,6 +24,12 @@ def root():
 
     return redirect("/users")
 
+@app.errorhandler(404)
+def page_not_found(e):
+    """Show 404 NOT FOUND page."""
+
+    return render_template('404.html'), 404
+
 @app.route('/users')
 def list_users():
     """Shows list of all users in db"""
@@ -46,8 +52,10 @@ def create_user():
     last_name = request.form["last_name"]
     image_url = request.form["image_url"] or None
     new_user = User(first_name=first_name, last_name=last_name, image_url=image_url)
+
     db.session.add(new_user)
     db.session.commit()
+    flash(f"New user {new_user.full_name} created")
 
     return redirect("/users")
 
@@ -76,6 +84,7 @@ def update_user(user_id):
 
     db.session.add(user)
     db.session.commit()
+    flash(f"{user.full_name} details edited")
 
     return redirect("/users")
 
@@ -86,6 +95,7 @@ def delete_user(user_id):
     user = User.query.get_or_404(user_id)
     db.session.delete(user)
     db.session.commit()
+    flash(f"User {user.full_name} deleted")
 
     return redirect("/users")
 
@@ -108,6 +118,7 @@ def create_post(user_id):
 
     db.session.add(new_post)
     db.session.commit()
+    flash(f"New Post: '{new_post.title}'!")
 
     return redirect(f"/users/{user.id}")
 
@@ -139,6 +150,7 @@ def update_post(post_id):
 
     db.session.add(post)
     db.session.commit()
+    flash(f"Post '{post.title}' edited")
 
     return redirect(f"/users/{post.user_id}")
 
@@ -151,5 +163,6 @@ def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
     db.session.delete(post)
     db.session.commit()
+    flash(f"Post '{post.title}' deleted")
 
     return redirect(f"/users/{post.user_id}")

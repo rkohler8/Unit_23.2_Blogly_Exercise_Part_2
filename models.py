@@ -15,8 +15,7 @@ class User(db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer,
-                   primary_key=True,
-                   autoincrement=True)
+                   primary_key=True)
     
     first_name = db.Column(db.String(50),
                      nullable=False)
@@ -32,6 +31,8 @@ class User(db.Model):
     #                  nullable=False,
     #                  unique=True)
     
+    posts = db.relationship('Post', backref='user')
+
     @property
     def full_name(self):
         """Return full name of user."""
@@ -43,13 +44,25 @@ class Post(db.Model):
 
     __tablename__ = "posts"
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.Text, nullable=False)
-    content = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.Text, nullable=False, default='when post was created?')
-    user_id = db.Column(db.Text, db.ForeignKey('users.id'))
+    id = db.Column(db.Integer, 
+                   primary_key=True, 
+                   autoincrement=True)
+
+    title = db.Column(db.Text, 
+                      nullable=False)
+
+    content = db.Column(db.Text, 
+                        nullable=False)
+
+    created_at = db.Column(db.Text, 
+                           nullable=False, 
+                           default='when post was created?')
+
+    user_id = db.Column(db.Integer, 
+                        db.ForeignKey('users.id'), 
+                        nullable=False,)
     
-    dept = db.relationship('Department', backref='employees')
+    # dept = db.relationship('Department', backref='employees')
 
     def __repr__(self):
-        return f"<Employee {self.name} {self.state} {self.dept_code} >"
+        return f"<Employee {self.title} {self.scontent} {self.created_at} {self.user_id} >"

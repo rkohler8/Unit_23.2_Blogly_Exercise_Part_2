@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<a href="/users/{{post.user.id}}">Go Back</a>
+<div>
+    <h1>{{post.title}}</h1>
+
+    <p>{{post.content}}</p>
+    <p><i>By {{post.user.full_name}}</i></p>
+
+    <button type="submit" class="cancel-button" formaction="/users/{{post.user.id}}" formmethod="">Cancel</button>
+    <button type="submit" class="edit-button" 
+      formaction="/posts/{{post.id}}/edit" formmethod="GET">
+      Edit
+      </button>
+    <button type="submit" class="add-button">Add</button>
+
+</div>
+{% endblock %}

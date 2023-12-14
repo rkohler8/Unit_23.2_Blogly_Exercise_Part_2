@@ -41,7 +41,6 @@ def list_users():
 def add_user_form():
     """Shows an add form for users"""
 
-    # users = User.query.all()
     return render_template('users/new_user.html')
 
 @app.route('/users/new', methods=["POST"])
